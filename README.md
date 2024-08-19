@@ -16,7 +16,7 @@ Accurate and real-time detection of traffic and road signs is crucial for enhanc
 - **Split**: 7,092 training images, 1,884 validation images, 1,024 test images
 - **Imbalance**: 9 underrepresented classes and 1 overrepresented class
 
-The dataset was sourced from Roboflow and used without additional pre-processing. Visualization of class balance is available in the Appendix.
+The dataset was sourced from Roboflow and used without additional pre-processing.
 
 ## Model Overview
 
@@ -60,12 +60,11 @@ The initial results indicate that YOLOv8 offers faster training times, while RT-
 
 ## Sources
 
-- Lv, W., Xu, S., Zhao, Y., Wang, G., Wei, J., Cui, C., ... & Liu, Y. (2023). Detrs beat yolos on real-time object detection. *arXiv preprint arXiv:2304.08069*.
-- Jocher, G., Chaurasia, A., & Qiu, J. (2023). Ultralytics YOLOv8 (Version 8.0.0) [Software]. Retrieved from [https://github.com/ultralytics/ultralytics](https://github.com/ultralytics/ultralytics).
+- Zhao, Y., Lv, W., Xu, S., Wei, J., Wang, G., Dang, Q., ... & Chen, J. (2024). Detrs beat yolos on real-time object detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 16965-16974).
+- Jocher, G., Chaurasia, A., & Qiu, J. (2023). Ultralytics YOLOv8 (Version 8.0.0) [Software]. Available at: https://github.com/ultralytics/ultralytics. License: AGPL-3.0. ORCID: 0000-0001-5950-6979, 0000-0002-7603-6750, 0000-0003-3783-7069.
+
 
 ## Appendix
 
-1. **Architecture of YOLOv8**: [Link to YOLOv8 Architecture](https://github.com/ultralytics/ultralytics/issues/189)
-2. **Architecture of RT-DETR**: Refer to Lv et al. (2023)
-3. **Class Balance Visualization**: Available on Roboflow
-4. **Evaluation Metrics**: Detailed comparison of training metrics for YOLOv8 and RT-DETR.
+1. **Architecture of YOLOv8**: [Link to YOLOv8 Architecture](https://yolov8.org/yolov8-architecture/)
+2. **Architecture of RT-DETR**: Refer to Zhao et al. (2024)
