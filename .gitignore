@@ -1,0 +1,16 @@
+# Ignore temporary files created by Azure ML Studio
+*.amltmp
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment files
+.env
+.venv/
+
+# Ignore logs and other temporary files
+*.log
+*.tmp
