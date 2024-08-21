@@ -1,5 +1,5 @@
-# Ignore temporary files created by Azure ML Studio
-*.amltmp
+# # Ignore temporary files created by Azure ML Studio
+# *.amltmp
 
 # Ignore Python cache files
 __pycache__/

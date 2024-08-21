@@ -1,0 +1,315 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Import data and dependencies"
+      ],
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "import random\n",
+        "import cv2\n",
+        "import matplotlib.pyplot as plt"
+      ],
+      "outputs": [],
+      "execution_count": 2,
+      "metadata": {
+        "gather": {
+          "logged": 1724224417114
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Get a list of all the image files in the training images directory\n",
+        "image_files_train = os.listdir(train_images)\n"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Choose 9 random image files from the list\n",
+        "random_images_train = random.sample(image_files_train, 9)"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Visualize random samples"
+      ],
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "fig, axs = plt.subplots(3, 3, figsize=(12, 12))\n",
+        "\n",
+        "for i, image_file in enumerate(random_images_train):\n",
+        "    row = i // 3\n",
+        "    col = i % 3\n",
+        "\n",
+        "    image_path = os.path.join(train_images, image_file)\n",
+        "    image = cv2.imread(image_path)\n",
+        "\n",
+        "    label_file = os.path.splitext(image_file)[0] + \".txt\"\n",
+        "    label_path = os.path.join(train_labels, label_file)\n",
+        "\n",
+        "    with open(label_path, \"r\") as f:\n",
+        "        labels = f.read().strip().split(\"\\n\")\n",
+        "\n",
+        "    for label in labels:\n",
+        "        if len(label.split()) != 5:\n",
+        "            continue\n",
+        "        class_id, x_center, y_center, width, height = map(float, label.split())\n",
+        "        x_min = int((x_center - width/2) * image.shape[1])\n",
+        "        y_min = int((y_center - height/2) * image.shape[0])\n",
+        "        x_max = int((x_center + width/2) * image.shape[1])\n",
+        "        y_max = int((y_center + height/2) * image.shape[0])\n",
+        "\n",
+        "        cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 3)\n",
+        "        label_text = f\"Class: {int(class_id)}\"\n",
+        "        cv2.putText(image, label_text, (x_min, y_min - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)\n",
+        "\n",
+        "    axs[row, col].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))\n",
+        "    axs[row, col].axis('off')\n",
+        "\n",
+        "plt.show()"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "fig, axs = plt.subplots(1, 3, figsize=(18, 6))\n",
+        "\n",
+        "for i, image_file in enumerate(random_images_train[:3]):\n",
+        "    image_path = os.path.join(train_images, image_file)\n",
+        "    image = cv2.imread(image_path)\n",
+        "\n",
+        "    label_file = os.path.splitext(image_file)[0] + \".txt\"\n",
+        "    label_path = os.path.join(train_labels, label_file)\n",
+        "\n",
+        "    with open(label_path, \"r\") as f:\n",
+        "        labels = f.read().strip().split(\"\\n\")\n",
+        "\n",
+        "    for label in labels:\n",
+        "        if len(label.split()) != 5:\n",
+        "            continue\n",
+        "        class_id, x_center, y_center, width, height = map(float, label.split())\n",
+        "        x_min = int((x_center - width/2) * image.shape[1])\n",
+        "        y_min = int((y_center - height/2) * image.shape[0])\n",
+        "        x_max = int((x_center + width/2) * image.shape[1])\n",
+        "        y_max = int((y_center + height/2) * image.shape[0])\n",
+        "\n",
+        "        cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 3)\n",
+        "        label_text = f\"Class: {int(class_id)}\"\n",
+        "        cv2.putText(image, label_text, (x_min, y_min - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)\n",
+        "\n",
+        "    axs[i].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))\n",
+        "    axs[i].axis('off')\n",
+        "\n",
+        "plt.show()\n"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Analyze Image Dimensions and Channels"
+      ],
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Get dimensions of a sample image\n",
+        "sample_image_path = '/content/datasets/Traffic-and-Road-Signs-1/train/images/00014_00004_00015_png_jpg.rf.6ecbae4f1a758b5a174fb558ef50838c.jpg'\n",
+        "image = cv2.imread(sample_image_path)\n",
+        "\n",
+        "h, w, c = image.shape\n",
+        "print(f\"The image has dimensions {w}x{h} and {c} channels.\")\n"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Get the dimensions of all images in the dataset\n",
+        "image_dimensions = [cv2.imread(os.path.join(train_images, img)).shape for img in image_files_train]\n",
+        "heights = [dim[0] for dim in image_dimensions]\n",
+        "widths = [dim[1] for dim in image_dimensions]\n",
+        "\n",
+        "print(f\"Average Image Width: {sum(widths)/len(widths)}\")\n",
+        "print(f\"Average Image Height: {sum(heights)/len(heights)}\")\n",
+        "print(f\"Max Image Width: {max(widths)}\")\n",
+        "print(f\"Max Image Height: {max(heights)}\")\n",
+        "\n",
+        "# all images were resized to 416 x 416 by the dataset's author."
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Analyze Class Distribution"
+      ],
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from collections import Counter\n",
+        "\n",
+        "# Count the frequency of each class\n",
+        "class_counts = Counter()\n",
+        "for image_file in image_files_train:\n",
+        "    label_file = os.path.splitext(image_file)[0] + \".txt\"\n",
+        "    label_path = os.path.join(train_labels, label_file)\n",
+        "    with open(label_path, \"r\") as f:\n",
+        "        labels = f.read().strip().split(\"\\n\")\n",
+        "        for label in labels:\n",
+        "            if len(label.split()) == 5:\n",
+        "                class_id = int(label.split()[0])\n",
+        "                class_counts[class_id] += 1\n",
+        "\n",
+        "# Display class distribution\n",
+        "print(\"Class Distribution:\")\n",
+        "for class_id, count in class_counts.items():\n",
+        "    print(f\"Class {class_id}: {count} instances\")\n"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import seaborn as sns\n",
+        "\n",
+        "sns.barplot(x=list(class_counts.keys()), y=list(class_counts.values()))\n",
+        "plt.xlabel('Class ID')\n",
+        "plt.ylabel('Number of Instances')\n",
+        "plt.title('Class Distribution')\n",
+        "plt.show()\n"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Check distribution of samples within class"
+      ],
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def visualize_samples_per_class(train_images, train_labels, num_samples=2):\n",
+        "    # Mapping from class IDs to image paths\n",
+        "    class_to_images = defaultdict(list)\n",
+        "\n",
+        "    # Iterate through all images and collect class-to-image mappings\n",
+        "    for image_file in os.listdir(train_images):\n",
+        "        label_file = os.path.splitext(image_file)[0] + \".txt\"\n",
+        "        label_path = os.path.join(train_labels, label_file)\n",
+        "        \n",
+        "        if os.path.exists(label_path):\n",
+        "            with open(label_path, \"r\") as f:\n",
+        "                labels = f.read().strip().split(\"\\n\")\n",
+        "                for label in labels:\n",
+        "                    if len(label.split()) == 5:\n",
+        "                        class_id = int(label.split()[0])\n",
+        "                        class_to_images[class_id].append(image_file)\n",
+        "\n",
+        "    # Plot samples for each class\n",
+        "    for class_id, image_files in class_to_images.items():\n",
+        "        selected_images = random.sample(image_files, min(num_samples, len(image_files)))\n",
+        "\n",
+        "        fig, axs = plt.subplots(1, len(selected_images), figsize=(15, 5))\n",
+        "        fig.suptitle(f\"Class: {class_id}\", fontsize=16)\n",
+        "\n",
+        "        for i, image_file in enumerate(selected_images):\n",
+        "            image_path = os.path.join(train_images, image_file)\n",
+        "            image = cv2.imread(image_path)\n",
+        "\n",
+        "            label_file = os.path.splitext(image_file)[0] + \".txt\"\n",
+        "            label_path = os.path.join(train_labels, label_file)\n",
+        "\n",
+        "            with open(label_path, \"r\") as f:\n",
+        "                labels = f.read().strip().split(\"\\n\")\n",
+        "\n",
+        "                for label in labels:\n",
+        "                    if len(label.split()) == 5:\n",
+        "                        _, x_center, y_center, width, height = map(float, label.split())\n",
+        "                        x_min = int((x_center - width / 2) * image.shape[1])\n",
+        "                        y_min = int((y_center - height / 2) * image.shape[0])\n",
+        "                        x_max = int((x_center + width / 2) * image.shape[1])\n",
+        "                        y_max = int((y_center + height / 2) * image.shape[0])\n",
+        "\n",
+        "                        cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)\n",
+        "\n",
+        "            axs[i].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))\n",
+        "            axs[i].axis('off')\n",
+        "\n",
+        "        plt.show()"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "visualize_samples_per_class(train_images=train_images, train_labels=train_labels, num_samples=2)"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "language_info": {
+      "name": "python",
+      "version": "3.9.19",
+      "mimetype": "text/x-python",
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "pygments_lexer": "ipython3",
+      "nbconvert_exporter": "python",
+      "file_extension": ".py"
+    },
+    "microsoft": {
+      "ms_spell_check": {
+        "ms_spell_check_language": "en"
+      }
+    },
+    "nteract": {
+      "version": "nteract-front-end@1.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 2
+}
