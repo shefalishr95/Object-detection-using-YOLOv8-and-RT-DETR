@@ -49,13 +49,17 @@ The experiments included the following configurations:
 3. **64 epochs, Batch size 32**: Training with a larger batch size.
 4. **100 epochs, Batch size 32**: Ongoing experiment with additional epochs.
 
-These configurations were designed to assess the effects of training duration and batch size on model performance.
+The models were trained and tested in the following environment:
+
+- **Python Version**: 3.10.12
+- **Torch Version**: 2.1.0 with CUDA support
+- **Hardware**: Tesla T4 GPU, 12.7 GB RAM, 27.1/166.8 GB disk space
 
 ### Tracking and Benchmarking
 
 MLflow was used for tracking and benchmarking the experiments:
 
-- **MLflow Tracking**: Parameters, metrics, and artifacts were logged for each experiment. Parameters such as learning rate, batch size, and number of epochs were recorded.
+- **MLflow Tracking**: Parameters, metrics (model and system), and artifacts were logged for each experiment.
 - **Metrics Tracked**: Metrics logged included:
 
   - **mAP (Mean Average Precision)**: Overall detection accuracy.
@@ -66,8 +70,6 @@ MLflow was used for tracking and benchmarking the experiments:
   - **Precision and Recall**: Measures of the model's identification and classification performance.
 
 - **Benchmarking**: Results from each configuration were compared to determine the best performing setup. YOLOv8 and RT-DETR models were assessed based on mAP scores, precision, recall, and other metrics.
-
-Future work will include adding inference metrics to evaluate real-world performance, such as speed and efficiency. Detailed results and visualizations will be available on the MLflow UI.
 
 ## Results
 
