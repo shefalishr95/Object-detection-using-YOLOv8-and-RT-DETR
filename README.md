@@ -10,10 +10,9 @@ This project explores the application of two advanced object detection models, Y
 2. [Models](#models)
 3. [Experiments](#experiments)
 4. [Results](#results)
-5. [Usage](#usage)
-6. [License](#license)
-7. [Sources](#sources)
-8. [Appendix](#appendix)
+5. [License](#license)
+6. [Sources](#sources)
+7. [Appendix](#appendix)
 
 ## Background and Dataset
 
