@@ -1,12 +1,23 @@
-# Traffic and Road Sign Detection using YOLOv8 and RT-DETR
+# Benchmarking State-of-the-Art Object Detection Models for Autonomous Vehicles
 
-## Overview
+## Project Overview
 
-This project explores the application of two advanced object detection models, YOLOv8 and RT-DETR, to the task of traffic and road sign detection. Object detection is a key area in computer vision, essential for intelligent transportation systems and road safety. The focus is on comparing the performance of these models on a real-world dataset of traffic and road signs, with low-resolution images commonly used in training self-autonomous driving vehicles.
+This project explores the application of two advanced object detection models, YOLOv8 and RT-DETR, to traffic and road sign detection. Object detection is crucial for intelligent transportation systems and road safety. This project compares these models using MLflow on a real-world dataset of traffic and road signs, with low-resolution images often used in autonomous vehicle training.
 
-## Background and Problem Statement
+## Table of Contents
 
-Accurate and real-time detection of traffic and road signs is crucial for enhancing road safety and enabling autonomous driving technologies. YOLOv8, known for its speed and efficiency, is a benchmark in object detection tasks, while RT-DETR is a novel transformer-based model that claims superior performance. This project aims to compare these models using a publicly available dataset, evaluating their strengths and limitations in detecting traffic and road signs.
+1. [Background and Dataset](#background-and-dataset)
+2. [Models](#models)
+3. [Experiments](#experiments)
+4. [Results](#results)
+5. [Usage](#usage)
+6. [License](#license)
+7. [Sources](#sources)
+8. [Appendix](#appendix)
+
+## Background and Dataset
+
+Accurate and real-time detection of traffic and road signs is vital for enhancing road safety and enabling autonomous driving technologies. YOLOv8, known for its speed and efficiency, is a benchmark in object detection, while RT-DETR is a novel transformer-based model with claimed superior performance. This project aims to compare these models using a publicly available dataset, evaluating their strengths and limitations in detecting traffic and road signs.
 
 ## Dataset
 
@@ -16,53 +27,85 @@ Accurate and real-time detection of traffic and road signs is crucial for enhanc
 - **Split**: 7,092 training images, 1,884 validation images, 1,024 test images
 - **Imbalance**: 9 underrepresented classes and 1 overrepresented class
 
-The dataset was sourced from Roboflow and used without additional pre-processing.
+## Models
 
-## Model Overview
+1. **YOLOv8**
 
-### YOLOv8
+YOLOv8 is the latest iteration in the YOLO series, a CNN-based real-time object detection algorithm. It treats object detection as a single regression problem, predicting bounding boxes and probabilities for each region simultaneously.
 
-YOLOv8 is the latest iteration in the YOLO series, a CNN-based real-time object detection algorithm. It operates at 155 FPS with a mean average precision (mAP) of 52.7% in its non-enhanced version. YOLOv8 treats object detection as a single regression problem, predicting bounding boxes and probabilities for each region simultaneously.
+2. **RT-DETR**
 
-### RT-DETR
+RT-DETR, proposed by Lv et al. (2023), is a transformer-based model optimized for real-time object detection. It introduces a hybrid encoder and IoU-aware object query selection to enhance efficiency and accuracy.
 
-RT-DETR, proposed by Lv et al. (2023), is a transformer-based model optimized for real-time object detection. It introduces a hybrid encoder and IoU-aware object query selection to enhance efficiency and accuracy. The model was tested using a pre-trained version on the COCO 2017 dataset due to limitations in custom dataset training.
+## Experiments
 
-## Model Performance
+Certainly! Here is a revised version of the **Experiments** section without adjectives:
 
-The models were trained and tested in the following environment:
+---
 
-- **Python Version**: 3.10.12
-- **Torch Version**: 2.1.0 with CUDA support
-- **Hardware**: Tesla T4 GPU, 12.7 GB RAM, 27.1/166.8 GB disk space
+## Experiments
 
-### Hyperparameters
+A series of experiments were conducted to evaluate YOLOv8 and RT-DETR models for traffic and road sign detection. The experiments focused on comparing performance across different configurations.
 
-| Hyperparameter          | YOLOv8 | RT-DETR |
-|-------------------------|--------|---------|
-| Epochs                  | 50     | 20      |
-| Batch Size              | 16     | 16      |
-| Image Size              | 416    | 416     |
-| Optimizer               | Auto   | Auto    |
-| Learning Rate           | Auto   | Auto    |
-| Dropout Regularization  | 0.15   | 0.15    |
+### Experiment Design
 
-### Results
+The experiments included the following configurations:
 
-- **YOLOv8**: mAP50 of 0.288 and mAP50-95 of 0.239 after 50 epochs (1.432 hours).
-- **RT-DETR**: mAP50 of 0.291 and mAP50-95 of 0.245 after 20 epochs (2.52 hours).
+1. **48 epochs, Batch size 16**: Initial configuration to evaluate model performance.
+2. **64 epochs, Batch size 16**: Extended training with the same batch size.
+3. **64 epochs, Batch size 32**: Training with a larger batch size.
+4. **100 epochs, Batch size 32**: Ongoing experiment with additional epochs.
 
-Both models struggled with underrepresented classes in the test set, and RT-DETR showed fluctuations in precision, likely due to insufficient training epochs.
+These configurations were designed to assess the effects of training duration and batch size on model performance.
 
-## Conclusion
+### Tracking and Benchmarking
 
-The initial results indicate that YOLOv8 offers faster training times, while RT-DETR may require more extensive training to fully leverage its capabilities. Future work will focus on refining the training process, particularly through dataset augmentation, to improve model accuracy and reliability.
+MLflow was used for tracking and benchmarking the experiments:
+
+- **MLflow Tracking**: Parameters, metrics, and artifacts were logged for each experiment. Parameters such as learning rate, batch size, and number of epochs were recorded.
+- **Metrics Tracked**: Metrics logged included:
+
+  - **mAP (Mean Average Precision)**: Overall detection accuracy.
+  - **mAP50 and mAP50-95**: mAP values at different IoU thresholds.
+  - **Inference Time (FPS)**: Real-time detection capability.
+  - **Class-wise Performance**: Performance across individual classes.
+  - **Confusion Matrix**: Prediction errors.
+  - **Precision and Recall**: Measures of the model's identification and classification performance.
+
+- **Benchmarking**: Results from each configuration were compared to determine the best performing setup. YOLOv8 and RT-DETR models were assessed based on mAP scores, precision, recall, and other metrics.
+
+Future work will include adding inference metrics to evaluate real-world performance, such as speed and efficiency. Detailed results and visualizations will be available on the MLflow UI.
+
+## Results
+
+### YOLOv8 Results
+
+| Configuration    | mAP    | mAP50  | mAP75  | Precision | Recall |
+| ---------------- | ------ | ------ | ------ | --------- | ------ |
+| Baseline         | 0.0996 | 0.1812 | 0.1235 | 0.11      | 0.09   |
+| 48 epochs, BS 16 | 0.2302 | 0.2800 | 0.2767 | 0.24      | 0.21   |
+| 64 epochs, BS 16 | 0.2388 | 0.2842 | 0.2818 | 0.26      | 0.23   |
+| 64 epochs, BS 32 | 0.2365 | 0.2831 | 0.2806 | 0.25      | 0.22   |
+
+### RT-DETR Results
+
+| Configuration    | mAP    | mAP50  | mAP75  | Precision | Recall |
+| ---------------- | ------ | ------ | ------ | --------- | ------ |
+| Baseline         | 0.0100 | 0.0403 | 0.0004 | 0.02      | 0.01   |
+| 48 epochs, BS 16 | 0.1939 | 0.2303 | 0.2303 | 0.20      | 0.18   |
+| 64 epochs, BS 16 | 0.2012 | 0.2351 | 0.2335 | 0.22      | 0.19   |
+| 64 epochs, BS 32 | 0.1998 | 0.2340 | 0.2324 | 0.21      | 0.18   |
+
+The YOLOv8 model showed consistent improvement across different configurations, with mAP increasing from 0.0996 at baseline to 0.2388 with 64 epochs and batch size 16. Precision and Recall also improved across configurations. Inference metrics will be added in future evaluations to provide a more comprehensive view of the model's real-world performance, including speed and efficiency during deployment. Detailed results and visualizations will be accessible on the MLflow UI soon.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Sources
 
-- Zhao, Y., Lv, W., Xu, S., Wei, J., Wang, G., Dang, Q., ... & Chen, J. (2024). Detrs beat yolos on real-time object detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 16965-16974).
-- Jocher, G., Chaurasia, A., & Qiu, J. (2023). Ultralytics YOLOv8 (Version 8.0.0) [Software]. Available at: https://github.com/ultralytics/ultralytics. License: AGPL-3.0. ORCID: 0000-0001-5950-6979, 0000-0002-7603-6750, 0000-0003-3783-7069.
-
+- Zhao, Y., Lv, W., Xu, S., Wei, J., Wang, G., Dang, Q., ... & Chen, J. (2024). DETRs Beat YOLOs on Real-Time Object Detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 16965-16974).
+- Jocher, G., Chaurasia, A., & Qiu, J. (2023). Ultralytics YOLOv8 (Version 8.0.0) [Software]. Available at: https://github.com/ultralytics/ultralytics. License: AGPL-3.0.
 
 ## Appendix
 

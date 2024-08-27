@@ -1,0 +1,116 @@
+{
+  "yolov8_experiment_1": {
+      "project_name": "yolov8_project",
+      "run_name": "yolov8_experiment_1",
+      "train_params": {
+          "data": "file_name.yaml",
+          "epochs": 48,
+          "imgsz": 416,
+          "batch": 16,
+          "save": false,
+          "cache": true,
+          "project": "yolov8_project",
+          "name": "yolov8_experiment_1",
+          "exist_ok": true,
+          "optimizer": "auto",
+          "seed": 43,
+          "resume": false,
+          "lr0": 1e-4
+      }
+  },
+  "yolov8_experiment_2": {
+      "project_name": "yolov8_project",
+      "run_name": "yolov8_experiment_2",
+      "train_params": {
+          "data": "file_name.yaml",
+          "epochs": 64,
+          "imgsz": 416,
+          "batch": 16,
+          "save": false,
+          "cache": true,
+          "project": "yolov8_project",
+          "name": "yolov8_experiment_2",
+          "exist_ok": true,
+          "optimizer": "auto",
+          "seed": 43,
+          "resume": false,
+          "lr0": 1e-4
+      }
+  },
+  "yolov8_experiment_3": {
+      "project_name": "yolov8_project",
+      "run_name": "yolov8_experiment_3",
+      "train_params": {
+          "data": "file_name.yaml",
+          "epochs": 100,
+          "imgsz": 416,
+          "batch": 16,
+          "save": false,
+          "cache": true,
+          "project": "yolov8_experiment_3",
+          "name": "yolov8_experiment_3",
+          "exist_ok": true,
+          "optimizer": "auto",
+          "seed": 43,
+          "resume": false,
+          "lr0": 1e-4
+      }
+  },
+  "rtdetr_experiment_1": {
+      "project_name": "rtdetr_project",
+      "run_name": "rtdetr_experiment_1",
+      "train_params": {
+          "data": "file_name.yaml",
+          "epochs": 48,
+          "imgsz": 416,
+          "batch": 16,
+          "save": false,
+          "cache": true,
+          "project": "rtdetr_project",
+          "name": "rtdetr_experiment_1",
+          "exist_ok": true,
+          "optimizer": "auto",
+          "seed": 43,
+          "resume": false,
+          "lr0": 1e-4
+      }
+  },
+  "rtdetr_experiment_2": {
+      "project_name": "rtdetr_project",
+      "run_name": "rtdetr_experiment_2",
+      "train_params": {
+          "data": "file_name.yaml",
+          "epochs": 64,
+          "imgsz": 416,
+          "batch": 16,
+          "save": false,
+          "cache": true,
+          "project": "rtdetr_project",
+          "name": "rtdetr_experiment_2",
+          "exist_ok": true,
+          "optimizer": "auto",
+          "seed": 43,
+          "resume": false,
+          "lr0": 1e-4
+      }
+  },
+  "rtdetr_experiment_3": {
+      "project_name": "rtdetr_project",
+      "run_name": "rtdetr_experiment_3",
+      "train_params": {
+          "data": "file_name.yaml",
+          "epochs": 100,
+          "imgsz": 416,
+          "batch": 16,
+          "save": false,
+          "cache": true,
+          "project": "rtdetr_project",
+          "name": "rtdetr_experiment_3",
+          "exist_ok": true,
+          "optimizer": "auto",
+          "seed": 43,
+          "resume": false,
+          "lr0": 1e-4
+      }
+  }
+}

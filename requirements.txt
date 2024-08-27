@@ -1,0 +1,7 @@
+mlflow
+ultralytics
+psutil
+pynvml
+roboflow
+Pillow
+ipython
