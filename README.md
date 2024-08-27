@@ -69,7 +69,9 @@ MLflow was used for tracking and benchmarking the experiments:
   - **Confusion Matrix**: Prediction errors.
   - **Precision and Recall**: Measures of the model's identification and classification performance.
 
-- **Benchmarking**: Results from each configuration were compared to determine the best performing setup. YOLOv8 and RT-DETR models were assessed based on mAP scores, precision, recall, and other metrics.
+- **Benchmarking**: Results from each configuration were compared to determine the best performing setup. YOLOv8 and RT-DETR models were assessed based on mAP scores, precision and recall.
+
+Due to resource limitations, comprehensive tuning of hyperparameters such as optimizers and learning rates was not feasible. Future work will focus on extending hyperparameter tuning, enhancing experiment design, and integrating inference metrics to provide a more complete assessment.
 
 ## Results
 
