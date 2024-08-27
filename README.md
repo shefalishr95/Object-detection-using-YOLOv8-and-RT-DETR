@@ -39,12 +39,6 @@ RT-DETR, proposed by Lv et al. (2023), is a transformer-based model optimized fo
 
 ## Experiments
 
-Certainly! Here is a revised version of the **Experiments** section without adjectives:
-
----
-
-## Experiments
-
 A series of experiments were conducted to evaluate YOLOv8 and RT-DETR models for traffic and road sign detection. The experiments focused on comparing performance across different configurations.
 
 ### Experiment Design
