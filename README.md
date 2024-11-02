@@ -10,9 +10,11 @@ This project explores the application of two advanced object detection models, Y
 2. [Models](#models)
 3. [Experiments](#experiments)
 4. [Results](#results)
-5. [License](#license)
-6. [Sources](#sources)
-7. [Appendix](#appendix)
+5. [Inference](#inference)
+6. [Limitations](#limitations)
+7. [License](#license)
+8. [Sources](#sources)
+9. [Appendix](#appendix)
 
 ## Background and Dataset
 
@@ -24,7 +26,7 @@ Accurate and real-time detection of traffic and road signs is vital for enhancin
 - **Size**: 10,000 images across 29 classes
 - **Resolution**: 416x416
 - **Split**: 7,092 training images, 1,884 validation images, 1,024 test images
-- **Imbalance**: 9 underrepresented classes and 1 overrepresented class
+- **Imbalance**: 9 underrepresented classes and 1 overrepresented class (not addressed in this project)
 
 ## Models
 
@@ -64,36 +66,79 @@ MLflow was used for tracking and benchmarking the experiments:
 
   - **mAP (Mean Average Precision)**: Overall detection accuracy.
   - **mAP50 and mAP50-95**: mAP values at different IoU thresholds.
-  - **Inference Time (FPS)**: Real-time detection capability.
-  - **Class-wise Performance**: Performance across individual classes.
   - **Confusion Matrix**: Prediction errors.
   - **Precision and Recall**: Measures of the model's identification and classification performance.
 
 - **Benchmarking**: Results from each configuration were compared to determine the best performing setup. YOLOv8 and RT-DETR models were assessed based on mAP scores, precision and recall.
 
-Due to resource limitations, comprehensive tuning of hyperparameters such as optimizers and learning rates was not feasible. Future work will focus on extending hyperparameter tuning, enhancing experiment design, and integrating inference metrics to provide a more complete assessment.
+Due to resource limitations, comprehensive tuning of hyperparameters such as optimizers and learning rates was not feasible.
+
+Results can be found at: https://dagshub.com/shefali.0695/Object-detection-using-YOLOv8-and-RT-DETR.mlflow
 
 ## Results
 
 ### YOLOv8 Results
 
-| Configuration    | mAP    | mAP50  | mAP75  | Precision | Recall |
-| ---------------- | ------ | ------ | ------ | --------- | ------ |
-| Baseline         | 0.0996 | 0.1812 | 0.1235 | 0.11      | 0.09   |
-| 48 epochs, BS 16 | 0.2302 | 0.2800 | 0.2767 | 0.24      | 0.21   |
-| 64 epochs, BS 16 | 0.2388 | 0.2842 | 0.2818 | 0.26      | 0.23   |
-| 64 epochs, BS 32 | 0.2365 | 0.2831 | 0.2806 | 0.25      | 0.22   |
+| Configuration    |   mAP   |  mAP50  |  mAP75  | Mean Precision | Mean Recall |
+| ---------------- | ------- | ------- | ------- | -------------- | ----------- |
+| Baseline         | 0.0996  | 0.1812  | 0.1235  | -              | -           |
+| 48 epochs, BS 16 | 0.2302  | 0.2800  | 0.2767  | 0.2705         | 0.2523      |
+| 64 epochs, BS 16 | 0.2388  | 0.2842  | 0.2818  | 0.2223         | 0.2904      |
+| 64 epochs, BS 32 | 0.2365  | 0.2831  | 0.2806  | 0.2097         | 0.2827      |
 
 ### RT-DETR Results
 
-| Configuration    | mAP    | mAP50  | mAP75  | Precision | Recall |
-| ---------------- | ------ | ------ | ------ | --------- | ------ |
-| Baseline         | 0.0100 | 0.0403 | 0.0004 | 0.02      | 0.01   |
-| 48 epochs, BS 16 | 0.1939 | 0.2303 | 0.2303 | 0.20      | 0.18   |
-| 64 epochs, BS 16 | 0.2012 | 0.2351 | 0.2335 | 0.22      | 0.19   |
-| 64 epochs, BS 32 | 0.1998 | 0.2340 | 0.2324 | 0.21      | 0.18   |
+| Configuration    | mAP    | mAP50  | mAP75  | Mean Precision | Mean Recall |
+| ---------------- | ------ | ------ | ------ | -------------- | ----------- |
+| Baseline         | 0.0996 | 0.1812 | 0.1235 | -              | -           |
+| 48 epochs, BS 16 | 0.2302 | 0.2800 | 0.2767 | 0.1931         | 0.3019      |
+| 64 epochs, BS 16 | 0.2388 | 0.2842 | 0.2818 | 0.1964         | 0.3000      |
+| 64 epochs, BS 32 | 0.0780 | 0.0918 | 0.0900 | 0.0730         | 0.2738      |
 
-The YOLOv8 model showed consistent improvement across different configurations, with mAP increasing from 0.0996 at baseline to 0.2388 with 64 epochs and batch size 16. Precision and Recall also improved across configurations. Inference metrics will be added in future evaluations to provide a more comprehensive view of the model's real-world performance, including speed and efficiency during deployment. Detailed results and visualizations will be accessible on the MLflow UI soon.
+## Inference
+
+Only two hyperparameters were tested:
+  - Number of epochs (48 vs 64)
+  - Batch size (16 vs 32)
+Other parameters remained at default values. Conclusions are specifically limited to these variations
+
+1. **Observed Patterns**
+- Epochs Effect:
+  - Both models improved with longer training (48 → 64 epochs)
+  - Similar improvement magnitude for both models. 
+  
+- Batch Size Effect:
+  - YOLOv8: Relatively stable with BS change
+    - Only minor drop from BS 16 (0.2388 mAP) to BS 32 (0.2365 mAP)
+  - RT-DETR: Highly sensitive to BS change
+    - Significant drop from BS 16 (0.2388 mAP) to BS 32 (0.0780 mAP)
+
+2. **Key Findings**
+- Both models reach identical best performance (mAP: 0.2388) with:
+  - 64 epochs
+  - Batch size 16
+- Main difference is in batch size sensitivity within the constraints of this experiment
+
+## Limitations
+
+1. **Hyperparameter Exploration**
+   - Limited testing to only two hyperparameters (epochs and batch size) due to resource constraints
+
+2. **Dataset Characteristics**
+   - Class imbalance: 9 underrepresented classes and 1 overrepresented class - apply class-specific augmentation?
+   - Limited dataset size (10,000 images) may affect model generalization
+
+3. **Computational Resources**
+   - Experiments constrained by available GPU resources (Tesla T4)
+   - Limited RAM (12.7 GB) restricted batch size options
+
+4. **Evaluation Metrics**
+   - Focus on inference time and computational efficiency measurements in the future and other object detection specific metrics like Intersection over Union (IoU), Frame Rate (FPS), object size sensitivity analysis, detection confidence scores distribution, miss rate across different occlusion levels, and multi-scale detection performance. 
+   - Additionally, evaluate model robustness through testing on edge cases such as partially visible signs, varying lighting conditions, and motion blur scenarios.
+
+5. **Training Duration**
+   - Maximum training limited to 64 epochs
+   - Potential for improved performance with extended training not explored (incomplete investigation of convergence patterns)
 
 ## License
 
