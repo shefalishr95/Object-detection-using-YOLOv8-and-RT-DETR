@@ -53,7 +53,6 @@ The experiments included the following configurations:
 1. **48 epochs, Batch size 16**: Initial configuration to evaluate model performance.
 2. **64 epochs, Batch size 16**: Extended training with the same batch size.
 3. **64 epochs, Batch size 32**: Training with a larger batch size.
-4. **100 epochs, Batch size 32**: Ongoing experiment with additional epochs.
 
 The models were trained and tested in the following environment:
 
