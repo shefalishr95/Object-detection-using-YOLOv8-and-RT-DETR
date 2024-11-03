@@ -38,6 +38,9 @@ YOLOv8 is the latest iteration in the YOLO series, a CNN-based real-time object 
 
 RT-DETR, proposed by Lv et al. (2023), is a transformer-based model optimized for real-time object detection. It introduces a hybrid encoder and IoU-aware object query selection to enhance efficiency and accuracy.
 
+![image](https://github.com/user-attachments/assets/251a5e01-b5e2-4eb8-8273-a7046abf1409)
+
+
 ## Experiments
 
 A series of experiments were conducted to evaluate YOLOv8 and RT-DETR models for traffic and road sign detection. The experiments focused on comparing performance across different configurations.
