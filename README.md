@@ -34,12 +34,13 @@ Accurate and real-time detection of traffic and road signs is vital for enhancin
 
 YOLOv8 is the latest iteration in the YOLO series, a CNN-based real-time object detection algorithm. It treats object detection as a single regression problem, predicting bounding boxes and probabilities for each region simultaneously.
 
+![image](https://github.com/user-attachments/assets/b1fe031a-0f96-49af-b9b1-8f0ca3a3d3ea)
+
 2. **RT-DETR**
 
 RT-DETR, proposed by Lv et al. (2023), is a transformer-based model optimized for real-time object detection. It introduces a hybrid encoder and IoU-aware object query selection to enhance efficiency and accuracy.
 
-![image](https://github.com/user-attachments/assets/251a5e01-b5e2-4eb8-8273-a7046abf1409)
-
+![image](https://github.com/user-attachments/assets/b8bbb01b-db20-4eb8-a0df-123ed1e16d4d)
 
 ## Experiments
 
