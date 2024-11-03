@@ -1,4 +1,4 @@
-# Benchmarking State-of-the-Art Object Detection Models for Autonomous Vehicles
+# Evaluating State-of-the-Art Object Detection Models for Auto-Vision 
 
 ## Project Overview
 
