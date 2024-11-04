@@ -32,7 +32,7 @@ Accurate and real-time detection of traffic and road signs is vital for enhancin
 
 1. **YOLOv8**
 
-YOLOv8 is the latest iteration in the YOLO series, a CNN-based real-time object detection algorithm. It treats object detection as a single regression problem, predicting bounding boxes and probabilities for each region simultaneously.
+YOLOv8 is a CNN-based real-time one-shot object detection algorithm. It treats object detection as a single regression problem, predicting bounding boxes and probabilities for each region simultaneously.
 
 ![image](https://github.com/user-attachments/assets/b1fe031a-0f96-49af-b9b1-8f0ca3a3d3ea)
 
